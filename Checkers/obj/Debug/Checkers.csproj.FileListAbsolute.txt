@@ -1,0 +1,10 @@
+C:\Users\papi\source\repos\Checkers\Checkers\bin\Debug\Checkers.exe.config
+C:\Users\papi\source\repos\Checkers\Checkers\bin\Debug\Checkers.exe
+C:\Users\papi\source\repos\Checkers\Checkers\bin\Debug\Checkers.pdb
+C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.csprojAssemblyReference.cache
+C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.Properties.Resources.resources
+C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.csproj.GenerateResource.cache
+C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.csproj.CoreCompileInputs.cache
+C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.exe
+C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.pdb
+C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.Board.resources
