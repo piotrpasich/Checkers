@@ -38,7 +38,6 @@
             this.Player.Size = new System.Drawing.Size(48, 17);
             this.Player.TabIndex = 1;
             this.Player.Text = "Player";
-            this.Player.Click += new System.EventHandler(this.Player_Click);
             // 
             // Board
             // 

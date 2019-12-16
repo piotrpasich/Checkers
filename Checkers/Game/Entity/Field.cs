@@ -5,22 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using Checkers.Game.Configuration;
 
-namespace Checkers.Game {
+namespace Checkers.Game.Entity {
     public class Field : PictureBox {
 
         private Color InitialColor { get; }
 
         public Point Localization { get; }
 
-        public Pawn PlacedPawn { get; private set; }
+        public Checker PlacedChecker { get; private set; }
 
         readonly private Color SelectionColor = Color.Lime;
 
         readonly private Color PossibleMoveColor = Color.Gray;
 
-        public Field(int fieldSize, int boardSize, Point localization) {
+        public event EventHandler FieldClicked;
+
+        public Field(BoardConfiguration boardConfiguration, Point localization) {
             this.Localization = localization;
+
+            int fieldSize = boardConfiguration.FieldSize;
+            int boardSize = boardConfiguration.BoardSize;
 
             ClientSize = new Size(fieldSize, fieldSize);
 
@@ -28,22 +34,28 @@ namespace Checkers.Game {
             int y = localization.Y;
 
             Location = new Point(
-                50 + (50 * x) % (fieldSize * boardSize),
-                50 + (50 * y) % (fieldSize * boardSize)
+                fieldSize + (fieldSize * x) % (fieldSize * boardSize),
+                fieldSize + (fieldSize * y) % (fieldSize * boardSize)
                 );
 
             BackColor = ((x + y) % 2 == 1) ? Color.White : Color.Black;
             Name = String.Concat("Field_", y, "_", x);
             InitialColor = BackColor;
+
+            MouseClick += ClickField;
         }
 
-        public void PlacePawn(Pawn pawnToPlace) {
-            PlacedPawn = pawnToPlace;
-            BackColor = pawnToPlace.Color;
+        private void ClickField(Object sender, EventArgs e) {
+            FieldClicked?.Invoke(this, e);
         }
 
-        public void RemovePawn() {
-            PlacedPawn = null;
+        public void PlaceChecker(Checker checkerToPlace) {
+            PlacedChecker = checkerToPlace;
+            BackColor = checkerToPlace.Color;
+        }
+
+        public void RemoveChecker() {
+            PlacedChecker = null;
             BackColor = InitialColor;
         }
 
@@ -60,15 +72,15 @@ namespace Checkers.Game {
         }
 
         public void Unclick() {
-            BackColor = HasPawn() ? PlacedPawn.Color : InitialColor;
+            BackColor = HasChecker() ? PlacedChecker.Color : InitialColor;
         }
 
         public bool IsBlack() {
             return InitialColor == Color.Black;
         }
 
-        public bool HasPawn() {
-            return PlacedPawn != null;
+        public bool HasChecker() {
+            return PlacedChecker != null;
         }
 
         public void Select() {

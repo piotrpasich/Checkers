@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Checkers.Game {
+namespace Checkers.Game.Entity {
     public class Player {
         public string Name { get; }
         public Color Color { get; }

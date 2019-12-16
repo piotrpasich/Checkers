@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Checkers.Game {
-    public class Pawn {
+namespace Checkers.Game.Entity {
+    public class Checker {
         public Color Color { get; private set; }
 
         public int MoveDirection { get; private set; }
 
         public bool IsQueen { get; private set; } = false;
 
-        public Pawn(Color color, int moveDirection) {
+        public Checker(Color color, int moveDirection) {
             this.Color = color;
             this.MoveDirection = moveDirection;
         }

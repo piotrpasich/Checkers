@@ -52,12 +52,28 @@
     <Compile Include="Board.Designer.cs">
       <DependentUpon>Board.cs</DependentUpon>
     </Compile>
-    <Compile Include="Game\GameBoard.cs" />
-    <Compile Include="Game\Field.cs">
+    <Compile Include="Game\Board\BoardBuilder.cs" />
+    <Compile Include="Game\Board\BoardFiller.cs" />
+    <Compile Include="Game\Moves\BoardFilter.cs" />
+    <Compile Include="Game\Board\Builder.cs" />
+    <Compile Include="Game\Board\BuilderBase.cs" />
+    <Compile Include="Game\Board\CheckersPlacer.cs" />
+    <Compile Include="Game\Configuration\BoardConfiguration.cs" />
+    <Compile Include="Game\Board\PlayerManager.cs" />
+    <Compile Include="Game\Configuration\Players.cs" />
+    <Compile Include="Game\GameManager.cs" />
+    <Compile Include="Game\Entity\Field.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Game\Pawn.cs" />
-    <Compile Include="Game\Player.cs" />
+    <Compile Include="Game\Entity\Checker.cs" />
+    <Compile Include="Game\Entity\Player.cs" />
+    <Compile Include="Game\Moves\ChangeDirection.cs" />
+    <Compile Include="Game\Moves\CheckerMove.cs" />
+    <Compile Include="Game\Moves\IsSelectedAsPossibleMove.cs" />
+    <Compile Include="Game\Moves\MakeMove.cs" />
+    <Compile Include="Game\Moves\ShowPossibleMoves.cs" />
+    <Compile Include="Game\Moves\SelectCurrentField.cs" />
+    <Compile Include="Game\Moves\UnclickAll.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Board.resx">
@@ -85,5 +101,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
