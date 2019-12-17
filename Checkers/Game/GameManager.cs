@@ -18,9 +18,9 @@ namespace Checkers {
 
         public Field[,] BoardFields { get; private set; }
 
-        private PlayerManager PlayerManager;
+        readonly private PlayerManager PlayerManager;
 
-        private List<CheckerMove> CheckerMoves = new List<CheckerMove> { };
+        private List<ICheckerMove> CheckerMoves = new List<ICheckerMove> { };
 
         public GameManager(Field[,] boardFields, PlayerManager playerManager) {
             BoardFields = boardFields;
@@ -28,12 +28,16 @@ namespace Checkers {
             PlayerManager = playerManager;
             RegisterDelegates();
 
+            MakeMove MakeMove = new MakeMove(BoardFields, PlayerManager);
+            MakeMove.FieldClicked += FieldClickedSecondTimeHandler;
+
             CheckerMoves.Add(new UnclickAll(BoardFields));
             CheckerMoves.Add(new SelectCurrentField(BoardFields, PlayerManager));
             CheckerMoves.Add(new ShowPossibleMoves(BoardFields, PlayerManager));
             CheckerMoves.Add(new IsSelectedAsPossibleMove());
-            CheckerMoves.Add(new MakeMove(BoardFields, PlayerManager));
+            CheckerMoves.Add(MakeMove);
             CheckerMoves.Add(new ChangeDirection(BoardSize));
+
         }
 
         private void RegisterDelegates() {
@@ -44,12 +48,16 @@ namespace Checkers {
             }
         }
 
+        private void FieldClickedSecondTimeHandler(object sender, EventArgs e) {
+            FieldClickedHandler(sender, e);
+        }
+
         private void FieldClickedHandler(object sender, EventArgs e) {
             ClickField((Field)sender);
         }
 
         private void ClickField(Field field) {
-            foreach (CheckerMove PossibleMove in CheckerMoves) {
+            foreach (ICheckerMove PossibleMove in CheckerMoves) {
                 if (!PossibleMove.Perform(field)) {
                     return;
                 }

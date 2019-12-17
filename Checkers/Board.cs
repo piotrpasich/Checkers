@@ -13,12 +13,16 @@ using Checkers.Game.Entity;
 using Checkers.Game.Configuration;
 
 namespace Checkers {
-    // dekoratory na gameBoard
+    // @papi
+    // dekoratory - sprawdzic czy wszedzie sa dobrze porobione
     // sprawdzanie po polach, a nie kolorach 
     // testy 
     // podmienic grafiki na pionkach
     // dodac jakis tytul czy cos
     // kto wygral
+    // czy nie ma wiecej ruchow
+    // restart gry
+    // zegar szachowy ? 
 
 
     public partial class Board : Form {

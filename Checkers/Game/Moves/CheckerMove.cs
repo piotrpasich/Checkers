@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers.Game.Moves {
-    public interface CheckerMove {
+    public interface ICheckerMove {
         bool Perform(Field field);
     }
 }

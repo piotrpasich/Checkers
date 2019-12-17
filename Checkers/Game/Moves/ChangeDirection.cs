@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers.Game.Moves {
-    class ChangeDirection: CheckerMove {
-        int BoardSize;
+    class ChangeDirection: ICheckerMove {
+        readonly private int BoardSize;
 
         public ChangeDirection (int boardSize) {
             BoardSize = boardSize;

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers.Game.Moves {
-    class ShowPossibleMoves: CheckerMove {
+    class ShowPossibleMoves: ICheckerMove {
         readonly private Field[,] BoardFields;
         readonly private PlayerManager PlayerManager;
         readonly private BoardFilter BoardFilter;

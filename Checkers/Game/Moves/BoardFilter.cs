@@ -49,6 +49,26 @@ namespace Checkers.Game.Board {
                 .ToList();
         }
 
+        public Field GetCurrentlySelectedChecker() {
+            List<Field> fields = (BoardFields.Cast<Field>()).ToList();
+
+            return fields.Find(field => {
+                return field.IsSelected();
+            });
+        }
+
+        public bool CanMakeAMove(Field selectedField, Player currentPlayer) {
+            return GetPossibleLocationsOfNextMove(selectedField, selectedField.PlacedChecker.MoveDirection)
+                .Where(point => (
+                point.X != 0 &&
+                point.Y != 0 &&
+                point.X != BoardSize - 1 &&
+                point.Y != BoardSize - 1 &&
+                GetPossibleMovesOverEnemies(selectedField, currentPlayer).Count > 0
+                ))
+                .ToList().Count() > 0;
+        }
+
         public List<Point> GetPossibleLocations(Field selectedField) {
             return (new List<Point> {
                     new Point(selectedField.Localization.X - 1, selectedField.Localization.Y - selectedField.PlacedChecker.MoveDirection),

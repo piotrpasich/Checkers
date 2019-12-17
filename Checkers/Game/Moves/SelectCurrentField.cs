@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers.Game.Moves {
-    class SelectCurrentField: CheckerMove {
+    class SelectCurrentField: ICheckerMove {
         readonly Field[,] BoardFields;
         readonly PlayerManager PlayerManager;
 

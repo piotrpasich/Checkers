@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers.Game.Moves {
-    class UnclickAll: CheckerMove {
-        Field[,] BoardFields;
+    class UnclickAll: ICheckerMove {
+        readonly private Field[,] BoardFields;
 
         public UnclickAll(Field[,] boardFields) {
             BoardFields = boardFields;
