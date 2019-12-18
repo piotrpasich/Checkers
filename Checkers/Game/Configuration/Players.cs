@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace Checkers.Game.Configuration {
     class Players {
         public List<Player> DefinedPlayers { get; } = new List<Player> {
-            new Player("Blue Player", Color.Blue),
-            new Player("Red Player", Color.Red),
+            new Player("Blue Player", Color.Black),
+            new Player("Red Player", Color.White),
         };
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using Checkers.Game.Configuration;
+using System.IO;
 
 namespace Checkers.Game.Entity {
     public class Field : PictureBox {
@@ -52,10 +53,16 @@ namespace Checkers.Game.Entity {
         public void PlaceChecker(Checker checkerToPlace) {
             PlacedChecker = checkerToPlace;
             BackColor = checkerToPlace.Color;
+            if (checkerToPlace.Color == Color.White) {
+                Image = Image.FromFile(@"..\Images\white.png");
+            } else {
+                Image = Image.FromFile(@"..\Images\black.png");
+            }
         }
 
         public void RemoveChecker() {
             PlacedChecker = null;
+            Image = null;
             BackColor = InitialColor;
         }
 
