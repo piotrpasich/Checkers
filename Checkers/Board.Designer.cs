@@ -32,24 +32,24 @@
             // 
             // Player
             // 
-            this.Player.AutoSize = true;
-            this.Player.Location = new System.Drawing.Point(613, 56);
+            this.Player.Font = new System.Drawing.Font("Tw Cen MT Condensed", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Player.Location = new System.Drawing.Point(1, 22);
             this.Player.Name = "Player";
-            this.Player.Size = new System.Drawing.Size(48, 17);
+            this.Player.Size = new System.Drawing.Size(664, 50);
             this.Player.TabIndex = 1;
             this.Player.Text = "Player";
+            this.Player.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(845, 567);
+            this.ClientSize = new System.Drawing.Size(666, 567);
             this.Controls.Add(this.Player);
             this.Name = "Board";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Board_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

@@ -52,7 +52,6 @@ namespace Checkers.Game.Entity {
 
         public void PlaceChecker(Checker checkerToPlace) {
             PlacedChecker = checkerToPlace;
-            BackColor = checkerToPlace.Color;
             if (checkerToPlace.Color == Color.White) {
                 Image = Image.FromFile(@"..\Images\white.png");
             } else {
@@ -79,7 +78,7 @@ namespace Checkers.Game.Entity {
         }
 
         public void Unclick() {
-            BackColor = HasChecker() ? PlacedChecker.Color : InitialColor;
+            BackColor = InitialColor;
         }
 
         public bool IsBlack() {

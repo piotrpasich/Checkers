@@ -7,3 +7,4 @@ C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.csproj.CoreCompi
 C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.exe
 C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.pdb
 C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.Board.resources
+C:\Users\papi\source\repos\Checkers\Checkers\obj\Debug\Checkers.csprojAssemblyReference.cache
