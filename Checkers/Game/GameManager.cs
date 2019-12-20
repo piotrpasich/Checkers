@@ -71,5 +71,11 @@ namespace Checkers {
                 }
             }
         }     
+
+        public void Dispose() {
+            foreach (Field field in BoardFields) {
+                field.Dispose();
+            }
+        }
     }
 }

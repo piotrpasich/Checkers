@@ -39,7 +39,8 @@ namespace Checkers.Game.Entity {
                 fieldSize + (fieldSize * y) % (fieldSize * boardSize)
                 );
 
-            BackColor = ((x + y) % 2 == 1) ? Color.White : Color.Black;
+            int moveBy = boardConfiguration.ColorForTopLeftCorner == Color.White ? 1 : 0;
+            BackColor = ((x + y + moveBy) % 2 == 1) ? Color.White : Color.Black;
             Name = String.Concat("Field_", y, "_", x);
             InitialColor = BackColor;
 

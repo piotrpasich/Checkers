@@ -61,7 +61,10 @@ namespace Checkers.Game.Moves {
             }
             
             List<Point> enemies = BoardFilter.LimitToOnlyEnemies(GetNearestEnemiest(field), field);
-            
+            if (!field.PlacedChecker.IsQueen && !GameConfiguration.CanCheckerBeatQueen()) {
+                enemies = BoardFilter.RemoveQueens(enemies, field);
+            }
+
             foreach (Point enemyPoint in enemies) {
                 Field enemy = BoardFields[enemyPoint.X, enemyPoint.Y];
                 possibleLocations.AddRange(GetPossibleMovesForEnemy(enemy, field));
@@ -83,6 +86,5 @@ namespace Checkers.Game.Moves {
 
             return possibleEnemyLocations;
         }
-
     }
 }

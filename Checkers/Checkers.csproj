@@ -44,6 +44,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="YamlDotNet, Version=8.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.8.0.0\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs">
@@ -55,6 +58,9 @@
     <Compile Include="Game\Board\BoardBuilder.cs" />
     <Compile Include="Game\Board\BoardFiller.cs" />
     <Compile Include="Game\Configuration\GameConfiguration.cs" />
+    <Compile Include="Game\Configuration\GameModesReader.cs" />
+    <Compile Include="Game\Configuration\YamlStream.cs" />
+    <Compile Include="Game\Entity\GameModeConfiguration.cs" />
     <Compile Include="Game\Moves\Filters\BoardFilter.cs" />
     <Compile Include="Game\Board\Builder.cs" />
     <Compile Include="Game\Board\BuilderBase.cs" />
@@ -90,6 +96,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Game\Config\GameModes.yml" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

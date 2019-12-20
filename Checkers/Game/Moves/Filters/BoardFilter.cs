@@ -70,6 +70,13 @@ namespace Checkers.Game.Board.Filters {
                    )).ToList();
         }
 
+        public List<Point> RemoveQueens(List<Point> possibleLocations, Field currentlySelectedField) {
+            return possibleLocations.Where(point => (
+                   ((BoardFields[point.X, point.Y]).HasChecker()) &&
+                   !(BoardFields[point.X, point.Y]).PlacedChecker.IsQueen
+                   )).ToList();
+        }
+
         public List<Point> GetAllPossibleLocations(Field selectedField) {
             List<Point> possiblePointsToMove = new List<Point> { };
 
