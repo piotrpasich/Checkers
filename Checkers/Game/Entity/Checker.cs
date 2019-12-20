@@ -14,16 +14,18 @@ namespace Checkers.Game.Entity {
 
         public bool IsQueen { get; private set; } = false;
 
-        public Checker(Color color, int moveDirection) {
-            this.Color = color;
-            this.MoveDirection = moveDirection;
+        public Player Player { get; private set; }
+
+        public Checker(Player player, int moveDirection) {
+            Player = player;
+            Color = player.Color;
+            MoveDirection = moveDirection;
         }
         public bool BelongsToPlayer(Player player) {
             return player.Color == Color;
         }
 
-        public void ChangeDirection() {
-            MoveDirection *= -1;
+        public void MakeQueen() {
             IsQueen = true;
         }
     }

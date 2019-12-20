@@ -26,9 +26,9 @@ namespace Checkers.Game.Board {
             foreach (int y in rowsWithCheckers) {
                 for (int i = 0; i < BoardFields.GetLength(0); i++) {
                     if (BoardFields[i, y].IsBlack()) {
-                        Color checkerColor = (rowsWithCheckers.Take(2)).Contains(y) ? Players[0].Color : Players[1].Color;
+                        Player checkerPlayer = (rowsWithCheckers.Take(2)).Contains(y) ? Players[0] : Players[1];
                         int moveDirection = (rowsWithCheckers.Take(2)).Contains(y) ? -1 : 1;
-                        (BoardFields[i, y]).PlaceChecker(new Checker(checkerColor, moveDirection));
+                        (BoardFields[i, y]).PlaceChecker(new Checker(checkerPlayer, moveDirection));
                     }
                 }
             }

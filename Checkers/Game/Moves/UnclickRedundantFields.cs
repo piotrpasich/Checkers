@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers.Game.Moves {
-    class UnclickAll: ICheckerMove {
+    class UnclickRedundantFields: ICheckerMove {
         readonly private Field[,] BoardFields;
 
-        public UnclickAll(Field[,] boardFields) {
+        public UnclickRedundantFields(Field[,] boardFields) {
             BoardFields = boardFields;
         }
 

@@ -54,7 +54,8 @@
     </Compile>
     <Compile Include="Game\Board\BoardBuilder.cs" />
     <Compile Include="Game\Board\BoardFiller.cs" />
-    <Compile Include="Game\Moves\BoardFilter.cs" />
+    <Compile Include="Game\Configuration\GameConfiguration.cs" />
+    <Compile Include="Game\Moves\Filters\BoardFilter.cs" />
     <Compile Include="Game\Board\Builder.cs" />
     <Compile Include="Game\Board\BuilderBase.cs" />
     <Compile Include="Game\Board\CheckersPlacer.cs" />
@@ -67,13 +68,14 @@
     </Compile>
     <Compile Include="Game\Entity\Checker.cs" />
     <Compile Include="Game\Entity\Player.cs" />
-    <Compile Include="Game\Moves\ChangeDirection.cs" />
+    <Compile Include="Game\Moves\MakeQueen.cs" />
     <Compile Include="Game\Moves\CheckerMove.cs" />
     <Compile Include="Game\Moves\IsSelectedAsPossibleMove.cs" />
     <Compile Include="Game\Moves\MakeMove.cs" />
     <Compile Include="Game\Moves\ShowPossibleMoves.cs" />
     <Compile Include="Game\Moves\SelectCurrentField.cs" />
-    <Compile Include="Game\Moves\UnclickAll.cs" />
+    <Compile Include="Game\Moves\CheckWinner.cs" />
+    <Compile Include="Game\Moves\UnclickRedundantFields.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Board.resx">

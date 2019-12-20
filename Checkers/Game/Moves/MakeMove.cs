@@ -1,4 +1,5 @@
 ﻿using Checkers.Game.Board;
+using Checkers.Game.Board.Filters;
 using Checkers.Game.Entity;
 using System;
 using System.Collections.Generic;

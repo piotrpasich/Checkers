@@ -52,10 +52,11 @@ namespace Checkers.Game.Entity {
 
         public void PlaceChecker(Checker checkerToPlace) {
             PlacedChecker = checkerToPlace;
+            string queenPostfix = PlacedChecker.IsQueen ? "_queen" : "";
             if (checkerToPlace.Color == Color.White) {
-                Image = Image.FromFile(@"..\Images\white.png");
+                Image = Image.FromFile(@"..\Images\white" + queenPostfix + ".png");
             } else {
-                Image = Image.FromFile(@"..\Images\black.png");
+                Image = Image.FromFile(@"..\Images\black" + queenPostfix + ".png");
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using Checkers.Game;
 using Checkers.Game.Board;
+using Checkers.Game.Configuration;
 using Checkers.Game.Entity;
 using Checkers.Game.Moves;
 using System;
@@ -22,7 +23,10 @@ namespace Checkers {
 
         private List<ICheckerMove> CheckerMoves = new List<ICheckerMove> { };
 
-        public GameManager(Field[,] boardFields, PlayerManager playerManager) {
+        private readonly GameConfiguration GameConfiguration;
+
+        public GameManager(Field[,] boardFields, PlayerManager playerManager, GameConfiguration gameConfiguration) {
+            GameConfiguration = gameConfiguration;
             BoardFields = boardFields;
             BoardSize = boardFields.GetLength(0);
             PlayerManager = playerManager;
@@ -31,13 +35,13 @@ namespace Checkers {
             MakeMove MakeMove = new MakeMove(BoardFields, PlayerManager);
             MakeMove.FieldClicked += FieldClickedSecondTimeHandler;
 
-            CheckerMoves.Add(new UnclickAll(BoardFields));
+            CheckerMoves.Add(new UnclickRedundantFields(BoardFields));
             CheckerMoves.Add(new SelectCurrentField(BoardFields, PlayerManager));
-            CheckerMoves.Add(new ShowPossibleMoves(BoardFields, PlayerManager));
+            CheckerMoves.Add(new ShowPossibleMoves(BoardFields, PlayerManager, GameConfiguration));
             CheckerMoves.Add(new IsSelectedAsPossibleMove());
             CheckerMoves.Add(MakeMove);
-            CheckerMoves.Add(new ChangeDirection(BoardSize));
-
+            CheckerMoves.Add(new CheckWinner(BoardFields, PlayerManager));
+            CheckerMoves.Add(new MakeQueen(BoardSize));            
         }
 
         private void RegisterDelegates() {
@@ -46,6 +50,10 @@ namespace Checkers {
                     (BoardFields[x, y]).FieldClicked += FieldClickedHandler;
                 }
             }
+        }
+
+        private void PlayerWonHandler(object sender, EventArgs e) {
+            Player player = (Player) sender;
         }
 
         private void FieldClickedSecondTimeHandler(object sender, EventArgs e) {

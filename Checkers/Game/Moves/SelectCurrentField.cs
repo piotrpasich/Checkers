@@ -18,10 +18,10 @@ namespace Checkers.Game.Moves {
         }
 
         public bool Perform(Field field) {
-            if (field.HasChecker() && !field.PlacedChecker.BelongsToPlayer(PlayerManager.GetCurrentPlayer())) {
+            if (!field.HasChecker()) {
                 return true;
             }
-            if (field.HasChecker() && field.BackColor == Color.Black) {
+            if (field.PlacedChecker.BelongsToPlayer(PlayerManager.GetCurrentPlayer())) {
                 field.Select();
             }
 

@@ -10,6 +10,7 @@ using Checkers.Game.Entity;
 namespace Checkers.Game.Board {
     public class PlayerManager {
         public event EventHandler PlayerChanged;
+        public event EventHandler PlayerWon;
 
         public List<Player> Players { get; private set; }
 
@@ -31,6 +32,10 @@ namespace Checkers.Game.Board {
 
         protected virtual void OnPlayerChanged(EventArgs e) {
             PlayerChanged?.Invoke(CurrentPlayer, e);
+        }
+
+        public void CallAWinner(Player player) {
+            PlayerWon?.Invoke(player, EventArgs.Empty);
         }
     }
 }

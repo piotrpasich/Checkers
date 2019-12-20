@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers.Game.Moves {
-    class ChangeDirection: ICheckerMove {
+    class MakeQueen: ICheckerMove {
         readonly private int BoardSize;
 
-        public ChangeDirection (int boardSize) {
+        public MakeQueen (int boardSize) {
             BoardSize = boardSize;
         }
 
@@ -18,7 +18,8 @@ namespace Checkers.Game.Moves {
                 ((field.PlacedChecker.MoveDirection == -1 && field.Localization.Y == BoardSize - 1) ||
                  (field.PlacedChecker.MoveDirection == 1 && field.Localization.Y == 0)
                 )) {
-                field.PlacedChecker.ChangeDirection();
+                field.PlacedChecker.MakeQueen();
+                field.PlaceChecker(field.PlacedChecker);
 
                 return true;
             }

@@ -28,6 +28,7 @@ namespace Checkers {
     public partial class Board : Form {
         private GameManager gameBoard;
         private PlayerManager PlayerManager;
+        private GameConfiguration GameConfiguration;
 
         public Board() {
             InitializeComponent();
@@ -38,21 +39,32 @@ namespace Checkers {
         }
 
         private void DrawBoard() {
-            PlayerManager = new PlayerManager();
-            PlayerManager.PlayerChanged += PlayerChangedHandler;
+            this.Winner.Visible = false;
 
-            BoardBuilder gameBoardBuilder = new BoardBuilder((new Players()).DefinedPlayers, new BoardConfiguration());
-            gameBoard = new GameManager(gameBoardBuilder.Build(), PlayerManager);
+            PlayerManager = new PlayerManager();
+            GameConfiguration = new GameConfiguration();
+            PlayerManager.PlayerChanged += PlayerChangedHandler;
+            PlayerManager.PlayerWon += PlayerWonHandler;
+
+            BoardBuilder gameBoardBuilder = new BoardBuilder((new Players()).DefinedPlayers, new BoardConfiguration(GameConfiguration));
+            gameBoard = new GameManager(gameBoardBuilder.Build(), PlayerManager, GameConfiguration);
             
             foreach (Field field in gameBoard.BoardFields) {
                 Controls.Add(field);
             }
+            PlayerManager.SwitchPlayer();
             this.Player.Text = PlayerManager.GetCurrentPlayer().Name;
         }
 
         private void PlayerChangedHandler (object sender, EventArgs e) {
             Player newPlayer = (Player)sender;
             this.Player.Text = newPlayer.Name;
+        }
+
+        private void PlayerWonHandler(object sender, EventArgs e) {
+            Player newPlayer = (Player)sender;
+            this.Winner.Visible = true;
+            this.Winner.Text = newPlayer.Name + " won";
         }
     }
 }
