@@ -1,5 +1,6 @@
 ﻿using Checkers.Game.Board;
 using Checkers.Game.Board.Filters;
+using Checkers.Game.Configuration;
 using Checkers.Game.Entity;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,11 @@ namespace Checkers.Game.Moves {
         readonly private BoardFilter BoardFilter;
         readonly private PlayerManager PlayerManager;
 
-        public CheckWinner(Field[,] boardFields, PlayerManager playerManager) {
+        public CheckWinner(Field[,] boardFields, 
+            PlayerManager playerManager,
+            GameConfiguration GameConfiguration) {
             BoardFields = boardFields;
-            BoardFilter = new BoardFilter(BoardFields);
+            BoardFilter = new BoardFilter(BoardFields, GameConfiguration);
             PlayerManager = playerManager;
         }
 

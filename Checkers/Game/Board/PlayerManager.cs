@@ -18,7 +18,7 @@ namespace Checkers.Game.Board {
 
         public PlayerManager() {
             Players = (new Players()).DefinedPlayers;
-            CurrentPlayer = Players[0];
+            CurrentPlayer = Players[1];
         }
 
         public Player GetCurrentPlayer() {

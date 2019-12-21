@@ -25,6 +25,8 @@ namespace Checkers {
 
         private readonly GameConfiguration GameConfiguration;
 
+        private readonly GlowPossibleMoves GlowPossibleMoves;
+
         public GameManager(Field[,] boardFields, PlayerManager playerManager, GameConfiguration gameConfiguration) {
             GameConfiguration = gameConfiguration;
             BoardFields = boardFields;
@@ -32,7 +34,7 @@ namespace Checkers {
             PlayerManager = playerManager;
             RegisterDelegates();
 
-            MakeMove MakeMove = new MakeMove(BoardFields, PlayerManager);
+            MakeMove MakeMove = new MakeMove(BoardFields, PlayerManager, GameConfiguration);
             MakeMove.FieldClicked += FieldClickedSecondTimeHandler;
 
             CheckerMoves.Add(new UnclickRedundantFields(BoardFields));
@@ -40,8 +42,12 @@ namespace Checkers {
             CheckerMoves.Add(new ShowPossibleMoves(BoardFields, PlayerManager, GameConfiguration));
             CheckerMoves.Add(new IsSelectedAsPossibleMove());
             CheckerMoves.Add(MakeMove);
-            CheckerMoves.Add(new CheckWinner(BoardFields, PlayerManager));
-            CheckerMoves.Add(new MakeQueen(BoardSize));            
+            CheckerMoves.Add(new CheckWinner(BoardFields, PlayerManager, GameConfiguration));
+            CheckerMoves.Add(new MakeQueen(BoardSize));
+
+            GlowPossibleMoves = new GlowPossibleMoves(BoardFields, GameConfiguration);
+            GlowPossibleMoves.MarkPossibleMoves(PlayerManager.GetCurrentPlayer());
+            PlayerManager.PlayerChanged += GlowPossibleMoves.PlayerChangedHandler;
         }
 
         private void RegisterDelegates() {

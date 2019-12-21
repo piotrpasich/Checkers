@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Game\Entity\Checker.cs" />
     <Compile Include="Game\Entity\Player.cs" />
+    <Compile Include="Game\Moves\GlowPossibleMoves.cs" />
     <Compile Include="Game\Moves\MakeQueen.cs" />
     <Compile Include="Game\Moves\CheckerMove.cs" />
     <Compile Include="Game\Moves\IsSelectedAsPossibleMove.cs" />

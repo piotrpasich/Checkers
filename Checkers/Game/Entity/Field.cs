@@ -23,6 +23,8 @@ namespace Checkers.Game.Entity {
 
         public event EventHandler FieldClicked;
 
+        public bool HasPossibleMoves { get; private set; }
+
         public Field(BoardConfiguration boardConfiguration, Point localization) {
             this.Localization = localization;
 
@@ -54,10 +56,11 @@ namespace Checkers.Game.Entity {
         public void PlaceChecker(Checker checkerToPlace) {
             PlacedChecker = checkerToPlace;
             string queenPostfix = PlacedChecker.IsQueen ? "_queen" : "";
+            string possibleToMovePostfix = HasPossibleMoves ? "_glow" : "";
             if (checkerToPlace.Color == Color.White) {
-                Image = Image.FromFile(@"..\Images\white" + queenPostfix + ".png");
+                Image = Image.FromFile(@"..\Images\white" + queenPostfix + possibleToMovePostfix + ".png");
             } else {
-                Image = Image.FromFile(@"..\Images\black" + queenPostfix + ".png");
+                Image = Image.FromFile(@"..\Images\black" + queenPostfix + possibleToMovePostfix + ".png");
             }
         }
 
@@ -65,10 +68,22 @@ namespace Checkers.Game.Entity {
             PlacedChecker = null;
             Image = null;
             BackColor = InitialColor;
+            HasPossibleMoves = false;
         }
 
         public void MarkAsPossibleMove() {
             BackColor = PossibleMoveColor;
+            
+        }
+
+        public void MarkAsPossibleToMove() {
+            HasPossibleMoves = true;
+            PlaceChecker(PlacedChecker);
+        }
+
+        public void MarkAsImossibleToMove() {
+            HasPossibleMoves = false;
+            PlaceChecker(PlacedChecker);
         }
 
         public bool IsSelected() {
@@ -81,6 +96,7 @@ namespace Checkers.Game.Entity {
 
         public void Unclick() {
             BackColor = InitialColor;
+            HasPossibleMoves = false;
         }
 
         public bool IsBlack() {

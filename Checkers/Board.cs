@@ -15,14 +15,8 @@ using Checkers.Game.Configuration;
 
 namespace Checkers {
     // @papi
-    // dekoratory - sprawdzic czy wszedzie sa dobrze porobione
-    // sprawdzanie po polach, a nie kolorach 
     // testy 
-    // podmienic grafiki na pionkach
-    // dodac jakis tytul czy cos
-    // kto wygral
-    // czy nie ma wiecej ruchow
-    // restart gry
+    // 
     // zegar szachowy ? 
 
 
@@ -56,7 +50,6 @@ namespace Checkers {
             foreach (Field field in GameManager.BoardFields) {
                 Controls.Add(field);
             }
-            PlayerManager.SwitchPlayer();
             
             SetTheDesignElements();
             ShowGameConfigurationsPicker(gameModeName);

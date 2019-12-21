@@ -1,5 +1,6 @@
 ﻿using Checkers.Game.Board;
 using Checkers.Game.Board.Filters;
+using Checkers.Game.Configuration;
 using Checkers.Game.Entity;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,13 @@ namespace Checkers.Game.Moves {
 
         public MakeMove(
             Field[,] boardFields,
-            PlayerManager playerManager) {
+            PlayerManager playerManager,
+            GameConfiguration gameConfiguration) {
 
             BoardFields = boardFields;
             BoardSize = boardFields.GetLength(0);
             PlayerManager = playerManager;
-            BoardFilter = new BoardFilter(boardFields);
+            BoardFilter = new BoardFilter(boardFields, gameConfiguration);
             
         }
 
@@ -38,7 +40,7 @@ namespace Checkers.Game.Moves {
 
             UnclickAll();
 
-            if (!hasJumpedOverEnemy || !BoardFilter.CanMakeAMove(field, PlayerManager.GetCurrentPlayer())) {
+            if (!hasJumpedOverEnemy || !BoardFilter.CanMakeAMoveOverAnEnemy(field, PlayerManager.GetCurrentPlayer())) {
                 PlayerManager.SwitchPlayer();
             } else {
                 FieldClicked?.Invoke(field, EventArgs.Empty);

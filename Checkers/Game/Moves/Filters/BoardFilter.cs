@@ -1,4 +1,5 @@
-﻿using Checkers.Game.Entity;
+﻿using Checkers.Game.Configuration;
+using Checkers.Game.Entity;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,10 +11,54 @@ namespace Checkers.Game.Board.Filters {
     public class BoardFilter {
         readonly private Field[,] BoardFields;
         readonly private int BoardSize;
+        readonly private GameConfiguration GameConfiguration;
 
-        public BoardFilter(Field[,] boardFields) {
+        public BoardFilter(Field[,] boardFields, GameConfiguration gameConfiguration) {
             BoardFields = boardFields;
             BoardSize = boardFields.GetLength(0);
+            GameConfiguration = gameConfiguration;
+        }
+
+        public List<Point> GetPossibleMoves(Field field) {
+            List<Point> possibleLocations = GetAllPossibleLocations(field);
+            possibleLocations = LimitToBoard(possibleLocations);
+
+            if (!field.PlacedChecker.IsQueen) {
+                possibleLocations = LimitToDirection(possibleLocations, field);
+            }
+            if (!field.PlacedChecker.IsQueen || !GameConfiguration.CanQueenMoveOverMoreFields()) {
+                possibleLocations = LimitToMaxJumps(possibleLocations, field);
+            }
+            possibleLocations = LimitToNearestEnemies(possibleLocations);
+            possibleLocations.AddRange(GetPossibleMovesOverEnemies(field));
+
+            possibleLocations = LimitToBoard(possibleLocations);
+
+            return possibleLocations;
+        }
+
+        public List<Point> GetPossibleMovesOverEnemies(Field field) {
+            List<Point> possibleLocations = new List<Point> { };
+            List<Point> enemies = GetNearestEnemiest(field);
+            if (!field.PlacedChecker.IsQueen && !GameConfiguration.CanCheckerBeatQueen()) {
+                enemies = RemoveQueens(enemies, field);
+            }
+
+            foreach (Point enemyPoint in enemies) {
+                Field enemy = BoardFields[enemyPoint.X, enemyPoint.Y];
+                possibleLocations.AddRange(GetPossibleMovesOverEnemy(enemy, field));
+            }
+
+            possibleLocations = LimitToBoard(possibleLocations);
+
+            return possibleLocations;
+        }
+
+        public bool CanMakeAMove(Field field, Player currentPlayer) {
+            Console.WriteLine("aa");
+            List<Point> possibleLocations = GetPossibleMoves(field);
+
+            return possibleLocations.ToList().Count() > 0;
         }
 
         public List<Point> LimitToNearestEnemies(List<Point> possiblePointsToMove) {
@@ -32,6 +77,7 @@ namespace Checkers.Game.Board.Filters {
                     return true;
                 }).ToList();
         }
+
         public List<Point> LimitToBoard(List<Point> possibleLocations) {
             return possibleLocations.Where(point => (
                    point.X >= 0 &&
@@ -131,7 +177,27 @@ namespace Checkers.Game.Board.Filters {
             });
         }
 
-        public bool CanMakeAMove(Field selectedField, Player currentPlayer) {
+        public List<Point> GetNearestEnemiest(Field field) {
+            List<Point> possibleLocations = GetAllPossibleLocations(field);
+            possibleLocations = LimitToBoard(possibleLocations);
+            possibleLocations = LimitToMaxJumps(possibleLocations, field);
+            return LimitToOnlyEnemies(possibleLocations, field);
+        }
+
+        public List<Point> GetPossibleMovesOverEnemy(Field enemy, Field currentlySelectedField) {
+            List<Point> possibleEnemyLocations = GetAllPossibleLocations(enemy);
+            possibleEnemyLocations = LimitToBoard(possibleEnemyLocations);
+            possibleEnemyLocations = LimitToMaxJumps(possibleEnemyLocations, enemy);
+            if (!currentlySelectedField.PlacedChecker.IsQueen && !GameConfiguration.CanCheckerMakeReverseBeat()) {
+                possibleEnemyLocations = LimitToDirection(possibleEnemyLocations, currentlySelectedField);
+            }
+            possibleEnemyLocations = LimitToNearestEnemies(possibleEnemyLocations);
+            possibleEnemyLocations = LimitToHorizontalDirection(possibleEnemyLocations, currentlySelectedField, enemy);
+
+            return possibleEnemyLocations;
+        }
+
+        public bool CanMakeAMoveOverAnEnemy(Field selectedField, Player currentPlayer) {
             return GetPossibleLocationsOfNextMove(selectedField, selectedField.PlacedChecker.MoveDirection)
                 .Where(point => (
                 point.X != 0 &&
