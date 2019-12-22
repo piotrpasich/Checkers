@@ -16,9 +16,9 @@ using Checkers.Game.Configuration;
 namespace Checkers {
     // @papi
     // testy 
-    // 
+    // drugi ruch - ukryc wszystko co nie jest biciem
+    // uporzadkowac filtry
     // zegar szachowy ? 
-
 
     public partial class Board : Form {
         private GameManager GameManager;

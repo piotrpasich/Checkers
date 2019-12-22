@@ -5,6 +5,8 @@
   CanCheckerMakeReverseBeat: 1
   ColorForTopLeftCorner: 1
   BoardSize: 8
+  RowsWithCheckers: 0,1,2,5,6,7
+  FieldsColors: Black
 - Name: Italian
   CanCheckerBeatQueen: 0
   CanQueenMoveOverMoreFields: 0
@@ -12,6 +14,8 @@
   CanCheckerMakeReverseBeat: 1
   ColorForTopLeftCorner: 0
   BoardSize: 8
+  RowsWithCheckers: 0,1,6,7
+  FieldsColors: Black
 - Name: Spanish
   CanCheckerBeatQueen: 1
   CanQueenMoveOverMoreFields: 1
@@ -19,6 +23,8 @@
   CanCheckerMakeReverseBeat: 0
   ColorForTopLeftCorner: 0
   BoardSize: 8
+  RowsWithCheckers: 0,1,6,7
+  FieldsColors: Black
 - Name: German
   CanCheckerBeatQueen: 1
   CanQueenMoveOverMoreFields: 1
@@ -26,6 +32,8 @@
   CanCheckerMakeReverseBeat: 1
   ColorForTopLeftCorner: 0
   BoardSize: 8
+  RowsWithCheckers: 0,1,6,7
+  FieldsColors: Black
 - Name: Russian
   CanCheckerBeatQueen: 1
   CanQueenMoveOverMoreFields: 1
@@ -33,6 +41,8 @@
   CanCheckerMakeReverseBeat: 1
   ColorForTopLeftCorner: 1
   BoardSize: 8
+  RowsWithCheckers: 0,1,6,7
+  FieldsColors: Black
 - Name: Polish
   CanCheckerBeatQueen: 1
   CanQueenMoveOverMoreFields: 1
@@ -40,6 +50,8 @@
   CanCheckerMakeReverseBeat: 1
   ColorForTopLeftCorner: 0
   BoardSize: 10
+  RowsWithCheckers: 0,1,2,3,6,7,8,9
+  FieldsColors: Black
 - Name: Canadian
   CanCheckerBeatQueen: 1
   CanQueenMoveOverMoreFields: 1
@@ -47,6 +59,8 @@
   CanCheckerMakeReverseBeat: 1
   ColorForTopLeftCorner: 0
   BoardSize: 12
+  RowsWithCheckers: 0,1,6,7
+  FieldsColors: Black
 - Name: Turkish
   CanCheckerBeatQueen: 1
   CanQueenMoveOverMoreFields: 1
@@ -54,3 +68,5 @@
   CanCheckerMakeReverseBeat: 0
   ColorForTopLeftCorner: 1
   BoardSize: 8
+  RowsWithCheckers: 1,2,5,6
+  FieldsColors: White,Black

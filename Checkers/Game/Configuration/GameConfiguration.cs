@@ -36,8 +36,16 @@ namespace Checkers.Game.Configuration {
             return GameModeConfiguration.ColorForTopLeftCorner == 1 ? Color.White : Color.Black;
         }
 
+        public List<Color> GetFieldsColors () {
+            return GameModeConfiguration.GetFieldsColors();
+        }
+
         public int GetBoardSize () {
             return GameModeConfiguration.BoardSize;
+        }
+
+        public List<int> GetRowsWithCheckers() {
+            return GameModeConfiguration.GetRowsWithCheckers();
         }
     }
 }
