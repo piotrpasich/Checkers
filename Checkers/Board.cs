@@ -98,7 +98,7 @@ namespace Checkers {
         private void ShowGameModeOptions(string gameModeName) {
             ConfigurationInformationTitles.Text = "Can Checker Beat The Queen" + Environment.NewLine +
                 "Can The Queen Move Over More Fields" + Environment.NewLine +
-                "Should Checker Make The Best Move First" + Environment.NewLine +
+                //"Should Checker Make The Best Move First" + Environment.NewLine +
                 "Can Checker Make A Reverse Beat" + Environment.NewLine +
                 "Color For Top Left Corner" + Environment.NewLine +
                 "Board Size";
@@ -106,7 +106,7 @@ namespace Checkers {
             ConfigurationInformationValues.Text =
                 pickedGameModeConfiguration.CanCheckerBeatQueen().ToString() + Environment.NewLine +
                 pickedGameModeConfiguration.CanQueenMoveOverMoreFields().ToString() + Environment.NewLine +
-                pickedGameModeConfiguration.ShouldCheckerMakeTheBestMoveFirst().ToString() + Environment.NewLine +
+                //pickedGameModeConfiguration.ShouldCheckerMakeTheBestMoveFirst().ToString() + Environment.NewLine +
                 pickedGameModeConfiguration.CanCheckerMakeReverseBeat().ToString() + Environment.NewLine +
                 pickedGameModeConfiguration.GetColorForTopLeftCorner().ToString() + Environment.NewLine +
                 pickedGameModeConfiguration.GetBoardSize().ToString() + "x" + pickedGameModeConfiguration.GetBoardSize().ToString();

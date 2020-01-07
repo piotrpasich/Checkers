@@ -37,7 +37,7 @@ namespace Checkers.Game.Board.Filters {
             return possibleLocations;
         }
 
-        public List<Point> GetPossibleMovesOverEnemies(Field field) {
+        private List<Point> GetPossibleMovesOverEnemies(Field field) {
             List<Point> possibleLocations = new List<Point> { };
             List<Point> enemies = GetNearestEnemiest(field);
             if (!field.PlacedChecker.IsQueen && !GameConfiguration.CanCheckerBeatQueen()) {
@@ -77,7 +77,7 @@ namespace Checkers.Game.Board.Filters {
             }
         }
 
-        public List<Point> LimitToNearestEnemies(Field currentField, List<Point> possiblePointsToMove) {
+        private List<Point> LimitToNearestEnemies(Field currentField, List<Point> possiblePointsToMove) {
             bool[] metChecker = { false, false, false, false };
 
             return possiblePointsToMove
@@ -94,7 +94,7 @@ namespace Checkers.Game.Board.Filters {
                 }).ToList();
         }
 
-        public List<Point> LimitToBoard(List<Point> possibleLocations) {
+        private List<Point> LimitToBoard(List<Point> possibleLocations) {
             return possibleLocations.Where(point => (
                    point.X >= 0 &&
                    point.X < BoardSize &&
@@ -103,21 +103,21 @@ namespace Checkers.Game.Board.Filters {
                    )).ToList();
         }
 
-        public List<Point> LimitToMaxJumps(List<Point> possibleLocations, Field currentlySelectedField) {
+        private List<Point> LimitToMaxJumps(List<Point> possibleLocations, Field currentlySelectedField) {
             return possibleLocations.Where(point => (
                 Math.Abs(point.X - currentlySelectedField.Localization.X) < 2 &&
                 Math.Abs(point.Y - currentlySelectedField.Localization.Y) < 2
             )).ToList();
         }
 
-        public List<Point> LimitToDirection(List<Point> possibleLocations, Field currentlySelectedField) {
+        private List<Point> LimitToDirection(List<Point> possibleLocations, Field currentlySelectedField) {
             int moveDirection = currentlySelectedField.PlacedChecker.MoveDirection;
             return possibleLocations.Where(point => (
                 Math.Sign(currentlySelectedField.Localization.Y - point.Y) == Math.Sign(moveDirection)
             )).ToList();
         }
 
-        public List<Point> LimitToHorizontalDirection(List<Point> possibleLocations, Field currentlySelectedField, Field enemyField) {
+        private List<Point> LimitToHorizontalDirection(List<Point> possibleLocations, Field currentlySelectedField, Field enemyField) {
             int moveDirection = Math.Sign(currentlySelectedField.Localization.X - enemyField.Localization.X);
             return possibleLocations.Where(point => (
                 Math.Sign(currentlySelectedField.Localization.X - point.X) == Math.Sign(moveDirection) &&
@@ -125,21 +125,21 @@ namespace Checkers.Game.Board.Filters {
             )).ToList();
         }
 
-        public List<Point> LimitToOnlyEnemies(List<Point> possibleLocations, Field currentlySelectedField) {
+        private List<Point> LimitToOnlyEnemies(List<Point> possibleLocations, Field currentlySelectedField) {
             return possibleLocations.Where(point => (
                    ((BoardFields[point.X, point.Y]).HasChecker()) &&
                    !((BoardFields[point.X, point.Y]).PlacedChecker.BelongsToPlayer(currentlySelectedField.PlacedChecker.Player))
                    )).ToList();
         }
 
-        public List<Point> RemoveQueens(List<Point> possibleLocations, Field currentlySelectedField) {
+        private List<Point> RemoveQueens(List<Point> possibleLocations, Field currentlySelectedField) {
             return possibleLocations.Where(point => (
                    ((BoardFields[point.X, point.Y]).HasChecker()) &&
                    !(BoardFields[point.X, point.Y]).PlacedChecker.IsQueen
                    )).ToList();
         }
 
-        public List<Point> GetAllPossibleLocations(Field selectedField) {
+        private List<Point> GetAllPossibleLocations(Field selectedField) {
             List<Point> possiblePointsToMove = new List<Point> { };
 
             for (int i = 1; i < BoardSize; i++) {
@@ -152,7 +152,7 @@ namespace Checkers.Game.Board.Filters {
             return possiblePointsToMove;
         }
         //@papi stare
-        public List<Point> GetPossibleLocationsForQueen(Field selectedField) {
+        private List<Point> GetPossibleLocationsForQueen(Field selectedField) {
             List<Point> possiblePointsToMove = new List<Point> { };
 
             for (int i = 1; i < BoardSize; i++) {
@@ -193,24 +193,39 @@ namespace Checkers.Game.Board.Filters {
             });
         }
 
-        public List<Point> GetNearestEnemiest(Field field) {
+        private List<Point> GetNearestEnemiest(Field field) {
             List<Point> possibleLocations = GetAllPossibleLocations(field);
             possibleLocations = LimitToBoard(possibleLocations);
             possibleLocations = LimitToMaxJumps(possibleLocations, field);
             return LimitToOnlyEnemies(possibleLocations, field);
         }
 
-        public List<Point> GetPossibleMovesOverEnemy(Field enemy, Field currentlySelectedField) {
+        private List<Point> GetPossibleMovesOverEnemy(Field enemy, Field currentlySelectedField) {
             List<Point> possibleEnemyLocations = GetAllPossibleLocations(enemy);
             possibleEnemyLocations = LimitToBoard(possibleEnemyLocations);
             possibleEnemyLocations = LimitToMaxJumps(possibleEnemyLocations, enemy);
             if (!currentlySelectedField.PlacedChecker.IsQueen && !GameConfiguration.CanCheckerMakeReverseBeat()) {
                 possibleEnemyLocations = LimitToDirection(possibleEnemyLocations, currentlySelectedField);
             }
-            possibleEnemyLocations = LimitToNearestEnemies(currentlySelectedField, possibleEnemyLocations);
+
             possibleEnemyLocations = LimitToHorizontalDirection(possibleEnemyLocations, currentlySelectedField, enemy);
 
             return possibleEnemyLocations;
+        }
+
+        private List<Point> GetOnlyNearestEnemies(Field currentField, List<Point> possiblePointsToMove) {
+            return possiblePointsToMove
+                .Where((point, index) => {
+                    try {
+                        BoardFields.GetValue(point.X, point.Y);
+                    } catch {
+                        return false;
+                    }
+                    if (BoardFields[point.X, point.Y].HasChecker()) {
+                        return true;
+                    }
+                    return false;
+                }).ToList();
         }
 
         public bool CanMakeAMoveOverAnEnemy(Field selectedField, Player currentPlayer) {
@@ -225,7 +240,7 @@ namespace Checkers.Game.Board.Filters {
                 .ToList().Count() > 0;
         }
 
-        public List<Point> GetPossibleLocations(Field selectedField) {
+        private List<Point> GetPossibleLocations(Field selectedField) {
             return (new List<Point> {
                     new Point(selectedField.Localization.X - 1, selectedField.Localization.Y - selectedField.PlacedChecker.MoveDirection),
                     new Point(selectedField.Localization.X + 1, selectedField.Localization.Y - selectedField.PlacedChecker.MoveDirection),
@@ -237,7 +252,7 @@ namespace Checkers.Game.Board.Filters {
                    )).ToList();
         }
 
-        public List<Point> GetPossibleMovesOverEnemies(Field field, Player currentPlayer) {
+        private List<Point> GetPossibleMovesOverEnemies(Field field, Player currentPlayer) {
             List<Point> possibleMoves = new List<Point> { };
             List<Point> possibleLocations = (new List<Point> {
                     new Point(field.Localization.X - 1, field.Localization.Y - 1),
@@ -263,7 +278,7 @@ namespace Checkers.Game.Board.Filters {
             return possibleMoves;
         }
 
-        public List<Point> GetPossibleLocationsOfNextMove(Field field, int moveDirection) {
+        private List<Point> GetPossibleLocationsOfNextMove(Field field, int moveDirection) {
             Point location = field.Localization;
             return (new List<Point> {
                     new Point(location.X - 1, location.Y - moveDirection),
@@ -276,13 +291,13 @@ namespace Checkers.Game.Board.Filters {
                    )).ToList();
         }
 
-        public List<Point> FilterFieldsWithoutPawn(List<Point> locations) {
+        private List<Point> FilterFieldsWithoutPawn(List<Point> locations) {
             return locations.Where(point => (
                    !((BoardFields[point.X, point.Y]).HasChecker())
                    )).ToList();
         }
 
-        public List<Point> GetPossibleMovesForNextStep(Field currentField, Field initialField) {
+        private List<Point> GetPossibleMovesForNextStep(Field currentField, Field initialField) {
             List<Point> possibleLocations = GetPossibleLocationsOfNextMove(currentField, (initialField.Localization.Y > currentField.Localization.Y ? 1 : -1));
             List<Point> locationsUserCanMove = possibleLocations.Where(point => (
                    !((BoardFields[point.X, point.Y]).HasChecker())
