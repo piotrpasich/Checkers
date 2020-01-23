@@ -10,7 +10,7 @@ namespace Checkers.Game.Configuration {
     class Players {
         public List<Player> DefinedPlayers { get; } = new List<Player> {
             new Player("Black Checkers", Color.Black),
-            new Player("White Checkers", Color.White),
+            new Player("Red Checkers", Color.White),
         };
     }
 }
